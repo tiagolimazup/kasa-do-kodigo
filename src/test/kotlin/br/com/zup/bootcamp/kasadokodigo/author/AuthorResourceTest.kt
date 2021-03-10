@@ -38,7 +38,7 @@ class AuthorResourceTest {
         mockMvc.post("/author") {
             headers {
                 contentType = MediaType.APPLICATION_JSON
-                content = createNewAuthorRequest.json()
+                content = createNewAuthorRequest.toJson()
             }
         }.andExpect {
             status { isOk() }
@@ -55,7 +55,7 @@ class AuthorResourceTest {
         mockMvc.post("/author") {
             headers {
                 contentType = MediaType.APPLICATION_JSON
-                content = CreateNewAuthorRequest(email = "tiago.lima@zup.com.br", description = "Ola").json()
+                content = CreateNewAuthorRequest(email = "tiago.lima@zup.com.br", description = "Ola").toJson()
             }
         }.andExpect {
             status { isBadRequest() }
@@ -67,7 +67,7 @@ class AuthorResourceTest {
         mockMvc.post("/author") {
             headers {
                 contentType = MediaType.APPLICATION_JSON
-                content = CreateNewAuthorRequest(name = "Tiago de Freitas Lima", description = "Ola").json()
+                content = CreateNewAuthorRequest(name = "Tiago de Freitas Lima", description = "Ola").toJson()
             }
         }.andExpect {
             status { isBadRequest() }
@@ -81,7 +81,7 @@ class AuthorResourceTest {
                 contentType = MediaType.APPLICATION_JSON
                 content = CreateNewAuthorRequest(name = "Tiago de Freitas Lima",
                                                  email = "bla",
-                                                 description = "Ola").json()
+                                                 description = "Ola").toJson()
             }
         }.andExpect {
             status { isBadRequest() }
@@ -93,7 +93,7 @@ class AuthorResourceTest {
         mockMvc.post("/author") {
             headers {
                 contentType = MediaType.APPLICATION_JSON
-                content = CreateNewAuthorRequest(name = "Tiago de Freitas Lima", email = "tiago.lima@zup.com.br").json()
+                content = CreateNewAuthorRequest(name = "Tiago de Freitas Lima", email = "tiago.lima@zup.com.br").toJson()
             }
         }.andExpect {
             status { isBadRequest() }
@@ -110,12 +110,12 @@ class AuthorResourceTest {
                 contentType = MediaType.APPLICATION_JSON
                 content = CreateNewAuthorRequest(name = author.name,
                                                  email = author.email,
-                                                 description = author.description).json()
+                                                 description = author.description).toJson()
             }
         }.andExpect {
             status { isBadRequest() }
         }
     }
 
-    fun CreateNewAuthorRequest.json() = jsonMapper.writeValueAsString(this)
+    fun CreateNewAuthorRequest.toJson() = jsonMapper.writeValueAsString(this)
 }
