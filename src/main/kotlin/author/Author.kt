@@ -9,10 +9,6 @@ import javax.validation.constraints.NotBlank
 
 @Entity
 class Author(
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null,
-
     @NotBlank
     @Column(nullable = false)
     val name: String,
@@ -23,4 +19,9 @@ class Author(
 
     @NotBlank
     @Column(nullable = false, length = 400)
-    val description: String)
+    val description: String) {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long? = null
+}
