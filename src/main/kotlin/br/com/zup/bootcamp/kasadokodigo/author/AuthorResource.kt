@@ -1,4 +1,4 @@
-package br.com.zup.bootcamp.kasadokodigo.autor
+package br.com.zup.bootcamp.kasadokodigo.author
 
 import org.springframework.http.ResponseEntity
 import org.springframework.transaction.annotation.Transactional
@@ -7,16 +7,16 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import javax.persistence.EntityManager
+import javax.validation.Valid
 
 @RestController
-@RequestMapping("/autor")
-class AutorController(val entityManager: EntityManager) {
+@RequestMapping("/author")
+class AuthorResource(val entityManager: EntityManager) {
 
     @PostMapping
     @Transactional
-    fun criaNovoAutor(@RequestBody criacaoNovoAutorRequest: CriacaoNovoAutorRequest) {
-        criacaoNovoAutorRequest.toModel()
-                .also { entityManager.persist(it) }
-                .let { ResponseEntity.ok().build<Unit>() }
+    fun create(@Valid @RequestBody request: CreateNewAuthorRequest): ResponseEntity<Unit> {
+        entityManager.persist(request.toAuthor())
+        return ResponseEntity.ok().build()
     }
 }
